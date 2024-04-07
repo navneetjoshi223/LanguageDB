@@ -3,7 +3,7 @@
 
 INSERT INTO userProfile (firstName, lastName, email, dateOfBirth, gender, isActive, totalRewardPoints, subscriptionStatus)
 VALUES 
-('Bindu', 'Pagad', 'bindu.pagad@llp.com', '1990-05-15', 'F', 'Yes', 500, 'Premium');
+('Bindu', 'Pagad', 'bindu.pagad@llp.com', '1990-05-15', 'F', 'Yes', 500, 'Premium'),
 ('Anu', 'Senthil', 'anu.senthil@llp.com', '1985-08-25', 'F', 'Yes', 750, 'Regular'),
 ('Thivya', 'Dhanasegaren', 'thivya.dhanasegaren@llp.com', '1982-12-10', 'F', 'Yes', 1000, 'Premium'),
 ('Ashwin', 'Ramkumar', 'ashwin.ramkumar@llp.com', '1995-03-20', 'M', 'Yes', 250, 'Regular'),
@@ -14,6 +14,7 @@ VALUES
 ('Christopher', 'Thomas', 'christopher.thomas@llp.com', '1987-06-28', 'M', 'No', 0, 'Regular'),
 ('Amanda', 'Garcia', 'amanda.garcia@llp.com', '1984-04-08', 'F', 'Yes', 600, 'Premium');
 
+select * from userProfile;
 -------------------------------------------------------------------------------
 
 -- languageCourse table data
@@ -29,12 +30,13 @@ VALUES('English', 'Learn English language skills', 1),
 ('Arabic', 'Learn Arabic language skills',9), 
 ('Portuguese', 'Learn Portuguese language skills',10);
 
+SELECT * from languageCourse;
 ---------------------------------------------------------------------------------
 
 -- resources table data
 INSERT INTO resources (resourceType, resourceContent, resourceLevel, languageCourseId)
 VALUES
-('Book', 'English Grammar Book', 'Beginner', 11), 
+('Book', 'English Grammar Book', 'Beginner', 1), 
 ('Video', 'Spanish Conversation Tutorial', 'Intermediate', 2), 
 ('Audio', 'French Pronunciation Audio', 'Advanced', 3),
 ('Book', 'German Vocabulary Book', 'Beginner', 4), 
@@ -45,18 +47,20 @@ VALUES
 ('Audio', 'Arabic Pronunciation Audio', 'Advanced', 9),
 ('Book', 'Portuguese Vocabulary Book', 'Beginner', 10);
 
+SELECT * from resources;
 ---------------------------------------------------------------------------------
 
 -- adminProfile table data
 INSERT INTO adminProfile (contactNumber, email, resourceId)
 VALUES ('1234567890', 'admin1@llp.com', 2);
 
+SELECT * from adminProfile
 ---------------------------------------------------------------------------------
 
 -- instructorProfile table data
 INSERT INTO instructorProfile (firstName, lastName, email, specialization, languageCourseId)
 VALUES 
-('John', 'Smith', 'john.smith@llp.com', 'English Grammar', 11),
+('John', 'Smith', 'john.smith@llp.com', 'English Grammar', 1),
 ('Alice', 'Johnson', 'alice.johnson@llp.com', 'Spanish Conversation', 2),
 ('Michael', 'Williams', 'michael.williams@llp.com', 'French Literature', 3),
 ('Emily', 'Brown', 'emily.brown@llp.com', 'German Language', 4),
@@ -66,6 +70,8 @@ VALUES
 ('Jessica', 'Miller', 'jessica.miller@llp.com', 'Italian Cuisine', 8),
 ('Christopher', 'Wilson', 'christopher.wilson@llp.com', 'Arabic Literature', 9),
 ('Amanda', 'Martinez', 'amanda.martinez@llp.com', 'Korean Language', 10);
+
+select * from instructorProfile;
 
 ---------------------------------------------------------------------------------
 -- contest table data
@@ -81,6 +87,8 @@ VALUES
 ('Urdu Contest'),
 ('Dutch Challenge'),
 ('Burmese Contest');
+
+select * from contest;
 
 ---------------------------------------------------------------------------------
 
@@ -98,12 +106,14 @@ VALUES
 ('Honorable Mention', 25, 4, 9, 2),
 ('Participation Award', 10, 5, 10, 2);
 
+SELECT * from contestReward;
+
 ---------------------------------------------------------------------------------
 
 -- userResourceAccess table data
 INSERT INTO userResourceAccess (userProfileId, resourceId, accessDate)
 VALUES
-(1, 11, '2024-03-25'),
+(1, 1, '2024-03-25'),
 (2, 2, '2024-03-26'),
 (3, 3, '2024-03-27'),
 (4, 4, '2024-03-28'),
@@ -113,6 +123,8 @@ VALUES
 (8, 8, '2024-04-01'),
 (9, 9, '2024-04-02'),
 (10, 10, '2024-04-03');
+
+SELECT * from userResourceAccess;
 
 ---------------------------------------------------------------------------------
 
@@ -124,26 +136,29 @@ VALUES
 (4, 3, '2024-03-27'),
 (4, 4, '2024-03-28'),
 (5, 5, '2024-03-29'),
-(6, 6, '2024-03-30'),
-(7, 7, '2024-03-31'),
-(7, 8, '2024-04-01'),
-(6, 9, '2024-04-02'),
-(7, 10, '2024-04-03');
+(1, 6, '2024-03-30'),
+(2, 7, '2024-03-31'),
+(3, 8, '2024-04-01'),
+(4, 9, '2024-04-02'),
+(5, 10, '2024-04-03');
 
+SELECT * from premiumInstructorAccess
 ---------------------------------------------------------------------------------
 -- courseProgress table data
 INSERT INTO courseProgress (userProfileId, languageCourseId, progressPercent, startDate, completionDate)
 VALUES
-(1, 2, 0, '2024-03-01', NULL),
-(2, 4, 0, '2024-03-05', NULL),
-(3, 4, 0, '2024-03-10', NULL),
-(4, 4, 0, '2024-03-15', '2024-03-20'),
-(5, 2, 0, '2024-03-01', NULL),
-(6, 2, 0, '2024-03-05', NULL),
-(7, 3, 0, '2024-03-10', NULL),
-(8, 3, 0, '2024-03-15', NULL),
-(9, 3, 0, '2024-03-20', NULL),
-(10, 3, 0, '2024-03-01', NULL);
+(1, 2, 67, '2024-03-01', NULL),
+(2, 4, 88, '2024-03-05', NULL),
+(3, 4, 31, '2024-03-10', NULL),
+(4, 4, 100, '2024-03-15', '2024-03-20'),
+(5, 2, 76, '2024-03-01', NULL),
+(6, 2, 54, '2024-03-05', NULL),
+(7, 3, 80, '2024-03-10', NULL),
+(8, 3, 60, '2024-03-15', NULL),
+(9, 3, 80, '2024-03-20', NULL),
+(10, 3, 20, '2024-03-01', NULL);
+
+SELECT * FROM courseProgress
 
 ---------------------------------------------------------------------------------
 
@@ -172,6 +187,8 @@ VALUES
 ('Listening Practice', 'This unit provides exercises to enhance listening comprehension skills.', 2),
 ('Speaking Fluency', 'This unit aims to improve speaking fluency through interactive activities and discussions.', 2);
 
+SELECT * from courseUnit
+
 ---------------------------------------------------------------------------------
 
 -- lesson table data
@@ -188,11 +205,13 @@ VALUES
 ('Places and Directions Vocabulary', 1, 'Learn vocabulary related to places and giving directions.', 0),
 ('Past Simple Tense', 2, 'Understand how to use the past simple tense to talk about past events.', 0);
 
+SELECT * from lesson;
+
 ---------------------------------------------------------------------------------
 -- quiz table data
 INSERT INTO quiz (description, lessonId, completionStatus)
 VALUES
-('Quiz 1: Greetings and Introductions', 3, 1);
+('Quiz 1: Greetings and Introductions', 3, 1),
 ('Quiz 2: Basic Verb Conjugation', 2, 0),
 ('Quiz 3: Family and Relationships Vocabulary', 3, 1),
 ('Quiz 4: Simple Present Tense', 4, 0),
@@ -203,20 +222,24 @@ VALUES
 ('Quiz 9: Places and Directions Vocabulary', 9, 1),
 ('Quiz 10: Past Simple Tense', 10, 0);
 
+SELECT * from quiz
+
 ---------------------------------------------------------------------------------
 -- quizContent table data
 INSERT INTO quizContent (quizID, question)
 VALUES 
-    (21, 'What is the capital of France?'),
-    (21, 'Who wrote the famous play "Romeo and Juliet"?'),
-    (22, 'What is the chemical symbol for water?'),
-    (22, 'Who invented the telephone?'),
-    (23, 'Which planet is known as the Red Planet?'),
-    (23, 'Who painted the Mona Lisa?'),
-    (24, 'What is the largest mammal in the world?'),
-    (24, 'Who discovered penicillin?'),
-    (25, 'What is the tallest mountain on Earth?'),
-    (25, 'Who was the first female Prime Minister of the United Kingdom?');
+    (1, 'What is the capital of France?'),
+    (1, 'Who wrote the famous play "Romeo and Juliet"?'),
+    (2, 'What is the chemical symbol for water?'),
+    (2, 'Who invented the telephone?'),
+    (3, 'Which planet is known as the Red Planet?'),
+    (3, 'Who painted the Mona Lisa?'),
+    (4, 'What is the largest mammal in the world?'),
+    (4, 'Who discovered penicillin?'),
+    (5, 'What is the tallest mountain on Earth?'),
+    (5, 'Who was the first female Prime Minister of the United Kingdom?');
+
+    SELECT * from quizContent
 
 ---------------------------------------------------------------------------------
 -- quizOptions table data
@@ -252,5 +275,7 @@ VALUES
     (10, 'Margaret Thatcher', 1),
     (10, 'Angela Merkel', 0),
     (10, 'Jacinda Ardern', 0);
+
+    select * from quizOptions
 
 ---------------------------------------------------------------------------------
