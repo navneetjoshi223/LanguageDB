@@ -21,7 +21,7 @@ CREATE TABLE profile
     profileId INT PRIMARY KEY IDENTITY(1,1),
     username VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    [password] VARCHAR(255) NOT NULL,
+    [password] VARBINARY(8000) NOT NULL,
     role VARCHAR(20) NOT NULL CHECK(role in ('Admin', 'Instructor', 'User'))
 );
 
@@ -618,19 +618,20 @@ CREATE CERTIFICATE MyLanguageLearningPlatformCertificate WITH SUBJECT = 'Passwor
 CREATE SYMMETRIC KEY MySymmetricKey WITH ALGORITHM = AES_256
 ENCRYPTION BY CERTIFICATE MyLanguageLearningPlatformCertificate;
 
-OPEN SYMMETRIC KEY MySymmetricKey
-DECRYPTION BY CERTIFICATE MyLanguageLearningPlatformCertificate;
+-- Stored Procedure to encrypt the password while inserting to profile table and this procedure is called in the Trigger
+CREATE PROCEDURE dbo.EncryptPasswordData
+    @passwordInput NVARCHAR(255),
+    @EncryptedData VARBINARY(8000) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    OPEN SYMMETRIC KEY MySymmetricKey
+    DECRYPTION BY CERTIFICATE MyLanguageLearningPlatformCertificate;
+    SET @EncryptedData = ENCRYPTBYKEY(KEY_GUID('MySymmetricKey'), @passwordInput);
+    CLOSE SYMMETRIC KEY MySymmetricKey;
+END;
 
--- UPDATE profile SET password = EncryptByKey(Key_GUID('MySymmetricKey'), password);
-
-UPDATE dbo.[profile] 
-SET [password] = EncryptByKey(Key_GUID('MySymmetricKey'), convert(varbinary, [password]))
-GO
-
-CLOSE SYMMETRIC KEY MySymmetricKey;
-
-Select *
-from profile
+-- Decrypting the password 
 
 OPEN SYMMETRIC KEY MySymmetricKey
 DECRYPTION BY CERTIFICATE MyLanguageLearningPlatformCertificate;
@@ -728,25 +729,36 @@ WHERE name = 'idx_lesson_unitId_completion';
     END;
 
 ------------------------------------------------------------------------
+GO
+CREATE TRIGGER trg_SaveUserToProfile
+ON userProfile
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
 
-    -- Trigger to update Profile table with user, admin and instructor profile values - 3
-    -- Creates a trigger to save user profiles to the 'profile' table after new users are inserted into the 'userProfile' table.
-    
-    GO;
-    CREATE TRIGGER trg_SaveUserToProfile
-    ON userProfile
-    AFTER INSERT
-    AS
-    BEGIN
-    INSERT INTO profile
-        (username, email, password, role)
-    SELECT CONCAT(firstName, '_', lastName), email, CONCAT(lastName, '@' , userProfileId), 'User'
+    DECLARE @EncryptedPassword VARBINARY(8000);
+
+    -- Declare variables to hold values from inserted table
+    DECLARE @Username NVARCHAR(255), @Email NVARCHAR(255), @Password NVARCHAR(255), @Role NVARCHAR(50);
+
+    -- Fetch values from the inserted table
+    SELECT @Username = CONCAT(firstName, '_', lastName),
+           @Email = email,
+           @Password = CONCAT(lastName, '@' , userProfileId), -- Assuming the password is stored in the inserted table
+           @Role = 'User'
     FROM inserted;
-    END;
+
+    -- Call the EncryptPasswordData procedure to encrypt the password
+    EXEC EncryptPasswordData @Password, @EncryptedPassword OUTPUT;
+
+    -- Insert data into the profile table, including the encrypted password
+    INSERT INTO profile (username, email, password, role)
+    VALUES (@Username, @Email, @EncryptedPassword, @Role);
+END;
 
     -- To verify the userProfile trigger 
-    Select *
-    from profile
+    Select * from profile
 
 ------------------------------------------------------------------------
 
