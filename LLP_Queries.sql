@@ -21,7 +21,7 @@ CREATE TABLE profile
     profileId INT PRIMARY KEY IDENTITY(1,1),
     username VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    password VARCHAR(100) NOT NULL,
+    [password] VARCHAR(255) NOT NULL,
     role VARCHAR(20) NOT NULL CHECK(role in ('Admin', 'Instructor', 'User'))
 );
 
@@ -618,13 +618,14 @@ CREATE CERTIFICATE MyLanguageLearningPlatformCertificate WITH SUBJECT = 'Passwor
 CREATE SYMMETRIC KEY MySymmetricKey WITH ALGORITHM = AES_256
 ENCRYPTION BY CERTIFICATE MyLanguageLearningPlatformCertificate;
 
-
--- ALTER TABLE profile ADD passwordEncrypted VARBINARY(MAX);
-
 OPEN SYMMETRIC KEY MySymmetricKey
 DECRYPTION BY CERTIFICATE MyLanguageLearningPlatformCertificate;
 
-UPDATE profile SET password = EncryptByKey(Key_GUID('MySymmetricKey'), password);
+-- UPDATE profile SET password = EncryptByKey(Key_GUID('MySymmetricKey'), password);
+
+UPDATE dbo.[profile] 
+SET [password] = EncryptByKey(Key_GUID('MySymmetricKey'), convert(varbinary, [password]))
+GO
 
 CLOSE SYMMETRIC KEY MySymmetricKey;
 
@@ -634,9 +635,7 @@ from profile
 OPEN SYMMETRIC KEY MySymmetricKey
 DECRYPTION BY CERTIFICATE MyLanguageLearningPlatformCertificate;
 
-SELECT profileId, CONVERT(VARCHAR, DecryptByKey(password)) AS DecryptedPassword
-FROM
-    profile;
+SELECT *, CONVERT(varchar, DecryptByKey([password])) AS DecryptedPassword FROM dbo.[profile];
 
 CLOSE SYMMETRIC KEY MySymmetricKey;
 
