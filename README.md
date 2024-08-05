@@ -39,32 +39,57 @@ The project consists of a well-structured SQL database with the following compon
 
 1.	Tables:
 	•	Profile: Stores user profiles with attributes such as username, email, password, and role.
+
 	•	Admin: Stores admin-specific details, including contact number and associated resources.
+
 	•	Instructor: Contains instructor-specific information such as first name, last name, and specialization.
+
 	•	User: Maintains user details including first name, last name, date of birth, gender, activity status, total reward points, and subscription status.
+
 	•	Contest: Holds information about various contests.
+
 	•	ContestReward: Tracks rewards given to users for participating in contests.
+
 	•	LanguageCourse: Stores information about the language courses offered, including the course name and description.
+
 	•	CourseUnit: Contains details about individual units within a language course.
+
 	•	Lesson: Stores lessons associated with each course unit, including lesson name, content, and completion status.
+
 	•	CourseProgress: Tracks user progress in different language courses, including progress percentage, start date, and completion date.
+
 	•	UserResourceAccess: Records access details of users to various resources.
+
 	•	Resources: Contains resource information such as resource type, content, and language level.
+
 	•	PremiumInstructorAccess: Tracks access details for premium instructors.
+
 	•	RegularUser: Contains details specific to regular users, including course limits.
+
 	•	PremiumUser: Contains details specific to premium users, including monthly costs.
+
 	•	Quiz: Stores information about quizzes associated with lessons, including quiz description and completion status.
+
 	•	QuizContent: Contains questions for each quiz.
+
 	•	QuizOptions: Holds the options for each quiz question, including whether the option is correct or not.
-2.	Views:
+
+3.	Views:
 	•	UserProgressView: Aggregates user progress data for quick access to overall progress.
+
 	•	CourseSummaryView: Provides a summary of each course, including the number of lessons and enrolled users.
-3.	Stored Procedures:
+
+5.	Stored Procedures:
 	•	AddUser: Procedure to add a new user to the database.
+
 	•	UpdateProgress: Procedure to update the progress of a user in a specific course or lesson.
+
 	•	RecordQuizResponse: Procedure to record the user’s response to a quiz question and calculate the score.
-4.	Triggers:
+
+7.	Triggers:
 	•	UpdateLeaderboard: Trigger to update the leaderboard whenever a user’s progress or quiz result changes.
-5.	Indexes:
+
+9.	Indexes:
 	•	UserIndex: Index on the Users table to speed up user lookup.
+
 	•	CourseIndex: Index on the Courses table to optimize course retrieval.
