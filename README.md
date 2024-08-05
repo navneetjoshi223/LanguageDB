@@ -9,27 +9,27 @@ A Language Learning System serves as an integrated solution for managing a diver
 
 ## Features
 
-	1.	User Management:
+1.	User Management:
 	•	Secure user authentication
 	•	Profile management
 	•	Personalized learning experience
-	2.	Course and Lesson Management:
+2.	Course and Lesson Management:
 	•	Comprehensive database for storing course and lesson information
 	•	Supports multimedia content (text, audio, video)
-	3.	Progress Tracking:
+3.	Progress Tracking:
 	•	Tracks user progress through courses and lessons
 	•	Records completed modules and scores
 	•	Provides feedback on performance
-	4.	Quiz and Assessment:
+4.	Quiz and Assessment:
 	•	Integrated quizzes and assessments
 	•	Stores questions, user responses, and results
-	5.	Leaderboard and Gamification:
+5.	Leaderboard and Gamification:
 	•	Competitive learning environment
 	•	Users earn points and badges based on performance
-	6.	Multilingual Support:
+6.	Multilingual Support:
 	•	Supports multiple languages
 	•	Easy accommodation for future language additions
-	7.	Scalability and Performance:
+7.	Scalability and Performance:
 	•	Optimized database structure
 	•	Efficient data retrieval and storage
 
@@ -37,7 +37,7 @@ A Language Learning System serves as an integrated solution for managing a diver
 
 The project consists of a well-structured SQL database with the following components:
 
-	1.	Tables:
+1.	Tables:
 	•	Profile: Stores user profiles with attributes such as username, email, password, and role.
 	•	Admin: Stores admin-specific details, including contact number and associated resources.
 	•	Instructor: Contains instructor-specific information such as first name, last name, and specialization.
@@ -56,15 +56,15 @@ The project consists of a well-structured SQL database with the following compon
 	•	Quiz: Stores information about quizzes associated with lessons, including quiz description and completion status.
 	•	QuizContent: Contains questions for each quiz.
 	•	QuizOptions: Holds the options for each quiz question, including whether the option is correct or not.
-	2.	Views:
+2.	Views:
 	•	UserProgressView: Aggregates user progress data for quick access to overall progress.
 	•	CourseSummaryView: Provides a summary of each course, including the number of lessons and enrolled users.
-	3.	Stored Procedures:
+3.	Stored Procedures:
 	•	AddUser: Procedure to add a new user to the database.
 	•	UpdateProgress: Procedure to update the progress of a user in a specific course or lesson.
 	•	RecordQuizResponse: Procedure to record the user’s response to a quiz question and calculate the score.
-	4.	Triggers:
+4.	Triggers:
 	•	UpdateLeaderboard: Trigger to update the leaderboard whenever a user’s progress or quiz result changes.
-	5.	Indexes:
+5.	Indexes:
 	•	UserIndex: Index on the Users table to speed up user lookup.
 	•	CourseIndex: Index on the Courses table to optimize course retrieval.
